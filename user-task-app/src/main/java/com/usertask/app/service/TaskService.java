@@ -8,5 +8,7 @@ public interface TaskService {
 
     public TaskDto saveTask (long userId, TaskDto taskDto);
 
-    public List<TaskDto> getAllTasks(Long userId);
+    public List<TaskDto> getAllTasks (Long userId);
+
+    public TaskDto getTask (Long userId, Long taskId);
 }
