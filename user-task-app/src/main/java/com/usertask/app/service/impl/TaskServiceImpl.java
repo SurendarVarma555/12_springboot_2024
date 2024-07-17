@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -37,8 +38,10 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDto> getAllTasks (Long userId){
+        userRepo.findById(userId).orElseThrow(() -> new UserNotFound(String.format("user not found with id %d", userId)));
+        List<Task> tasks = taskRepo.findAllByUsers_Id(userId);
+        return tasks.stream().map(task -> modelMapper.map(task, TaskDto.class)).collect(Collectors.toList());
 
-        return null;
     }
 }
 
